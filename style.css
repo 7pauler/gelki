@@ -1,17 +1,17 @@
 :root {
-    --bg-color: #001f3f;        /* Dunkelblau */
-    --accent-blue: #003366;     /* Etwas helleres Blau für Kästen */
-    --header-text: #ffffff;     /* Weiß für Text im Header */
-    --card-border: #00aaff;     /* Leuchtendes Blau für Ränder */
-    --btn-color: #ff851b;       /* Orange für die Pfeile */
-    --btn-shadow: #cc6600;      /* Dunkleres Orange für den Schatten */
+    --bg-color: #001f3f;
+    --accent-blue: #003366;
+    --header-text: #ffffff;
+    --card-border: #00aaff;
+    --btn-color: #ff851b;
+    --btn-shadow: #cc6600;
 }
 
 body {
     background-color: var(--bg-color);
     background-image: radial-gradient(#003366 1px, transparent 1px);
     background-size: 25px 25px;
-    font-family: "Chalkboard SE","Comic Sans MS", "Comic Sans", cursive;
+    font-family: "Chalkboard SE", "Comic Sans MS", "Comic Sans", cursive;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,18 +23,14 @@ body {
 .header {
     margin: 30px 0;
     padding: 15px 40px;
-    background: var(--accent-blue); /* Kasten ist jetzt blau */
+    background: var(--accent-blue);
     border: 4px solid var(--card-border);
     border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
     transform: rotate(-2deg);
     box-shadow: 10px 10px 0px #000033;
 }
 
-.header h1 {
-    margin: 0;
-    color: var(--header-text);
-    font-size: 2.5rem;
-}
+.header h1 { margin: 0; color: var(--header-text); font-size: 2.5rem; }
 
 .carousel-wrapper {
     display: flex;
@@ -44,7 +40,7 @@ body {
 }
 
 .btn {
-    background-color: var(--btn-color); /* Orange Buttons */
+    background-color: var(--btn-color);
     border: 3px solid #333;
     color: white;
     width: 65px;
@@ -56,20 +52,14 @@ body {
     transition: all 0.2s;
 }
 
-/* Container für die Karte - passt sich dem Bildschirm an */
 .card-container {
-    width: 80vw;       /* 80% der Bildschirmbreite */
-    max-width: 400px;  /* Maximal 400px breit */
-    height: 60vh;      /* 60% der Bildschirmhöhe */
-    max-height: 500px; /* Maximal 500px hoch */
+    width: 80vw;
+    max-width: 400px;
+    height: 60vh;
+    max-height: 500px;
     position: relative;
-    transition: transform 0.5s ease-in-out;
-    /* Verhindert Flackern bei Animationen */
-    backface-visibility: hidden;
-    will-change: transform;
 }
 
-/* Die Flip-Karte selbst - füllt den Container voll aus */
 .card {
     width: 100%;
     height: 100%;
@@ -77,15 +67,17 @@ body {
     transform-style: preserve-3d;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
 }
 
-/* Kartenkasten jetzt auch Blau */
 .card-front, .card-back {
     position: absolute;
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    background: var(--accent-blue); 
+    background: var(--accent-blue);
     border: 5px solid var(--card-border);
     border-radius: 20px;
     display: flex;
@@ -93,42 +85,29 @@ body {
     align-items: center;
 }
 
-.card-back {
-    transform: rotateY(180deg); /* Die Rückseite muss um 180 Grad gedreht starten */
-}
+.card-back { transform: rotateY(180deg); }
 
 .card img {
     width: 90%;
     height: 90%;
     object-fit: contain;
+    border-radius: 10px;
+    /* Übergang für das Bild-Laden */
+    transition: opacity 0.3s ease-in;
 }
 
-/* ... (Die restlichen Animationen aus dem vorherigen Code bleiben gleich) ... */
-
-/* 1. Hover-Effekt für die Karte (im .card-container) */
-.card-container:hover .card {
-    transform: scale(1.05); /* Karte wird größer beim Hovern auf den Container */
+/* Wenn das Bild gerade erst gewechselt wird, ist es kurz unsichtbar */
+.card img.loading {
+    opacity: 0;
 }
 
-/* 2. Wenn Karte gedreht ist, soll sie beim Hovern nicht zurückspringen */
-.card.is-flipped {
-    transform: rotateY(180deg);
-}
+.card-container:hover .card { transform: scale(1.05); }
+.card.is-flipped { transform: rotateY(180deg); }
+.card-container:hover .card.is-flipped { transform: rotateY(180deg) scale(1.05); }
 
-/* Der Hover-Effekt für die gedrehte Karte */
-.card-container:hover .card.is-flipped {
-    transform: rotateY(180deg) scale(1.05);
-}
+.slide-left { animation-name: slideLeft; }
+.slide-right { animation-name: slideRight; }
 
-/* Sicherstellen, dass die Animation den Container bewegt */
-.slide-left {
-    animation: slideLeft 0.5s ease-in-out forwards;
-}
-
-.slide-right {
-    animation: slideRight 0.5s ease-in-out forwards;
-}
-/* Animationen für das Raussliden */
 @keyframes slideLeft {
     0% { transform: translateX(0); opacity: 1; }
     50% { transform: translateX(-100px); opacity: 0; }
