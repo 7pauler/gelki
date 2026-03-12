@@ -1,0 +1,143 @@
+:root {
+    --bg-color: #001f3f;        /* Dunkelblau */
+    --accent-blue: #003366;     /* Etwas helleres Blau für Kästen */
+    --header-text: #ffffff;     /* Weiß für Text im Header */
+    --card-border: #00aaff;     /* Leuchtendes Blau für Ränder */
+    --btn-color: #ff851b;       /* Orange für die Pfeile */
+    --btn-shadow: #cc6600;      /* Dunkleres Orange für den Schatten */
+}
+
+body {
+    background-color: var(--bg-color);
+    background-image: radial-gradient(#003366 1px, transparent 1px);
+    background-size: 25px 25px;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.header {
+    margin: 30px 0;
+    padding: 15px 40px;
+    background: var(--accent-blue); /* Kasten ist jetzt blau */
+    border: 4px solid var(--card-border);
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+    transform: rotate(-2deg);
+    box-shadow: 10px 10px 0px #000033;
+}
+
+.header h1 {
+    margin: 0;
+    color: var(--header-text);
+    font-size: 2.5rem;
+}
+
+.carousel-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    perspective: 1000px;
+}
+
+.btn {
+    background-color: var(--btn-color); /* Orange Buttons */
+    border: 3px solid #333;
+    color: white;
+    width: 65px;
+    height: 65px;
+    font-size: 30px;
+    cursor: pointer;
+    border-radius: 50% 45% 55% 48% / 48% 55% 45% 50%;
+    box-shadow: 5px 5px 0px var(--btn-shadow);
+    transition: all 0.2s;
+}
+
+/* Container für die Karte - passt sich dem Bildschirm an */
+.card-container {
+    width: 80vw;       /* 80% der Bildschirmbreite */
+    max-width: 400px;  /* Maximal 400px breit */
+    height: 60vh;      /* 60% der Bildschirmhöhe */
+    max-height: 500px; /* Maximal 500px hoch */
+    position: relative;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Die Flip-Karte selbst - füllt den Container voll aus */
+.card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+/* Kartenkasten jetzt auch Blau */
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background: var(--accent-blue); 
+    border: 5px solid var(--card-border);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-back {
+    transform: rotateY(180deg); /* Die Rückseite muss um 180 Grad gedreht starten */
+}
+
+.card img {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+    border: 2px solid white; /* Weißer Rahmen um Bild im blauen Kasten */
+    border-radius: 10px;
+}
+
+/* ... (Die restlichen Animationen aus dem vorherigen Code bleiben gleich) ... */
+
+/* 1. Hover-Effekt für die Karte (im .card-container) */
+.card-container:hover .card {
+    transform: scale(1.05); /* Karte wird größer beim Hovern auf den Container */
+}
+
+/* 2. Wenn Karte gedreht ist, soll sie beim Hovern nicht zurückspringen */
+.card.is-flipped {
+    transform: rotateY(180deg);
+}
+
+/* Der Hover-Effekt für die gedrehte Karte */
+.card-container:hover .card.is-flipped {
+    transform: rotateY(180deg) scale(1.05);
+}
+
+/* Sicherstellen, dass die Animation den Container bewegt */
+.slide-left {
+    animation: slideLeft 0.5s ease-in-out forwards;
+}
+
+.slide-right {
+    animation: slideRight 0.5s ease-in-out forwards;
+}
+/* Animationen für das Raussliden */
+@keyframes slideLeft {
+    0% { transform: translateX(0); opacity: 1; }
+    50% { transform: translateX(-100px); opacity: 0; }
+    51% { transform: translateX(100px); }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideRight {
+    0% { transform: translateX(0); opacity: 1; }
+    50% { transform: translateX(100px); opacity: 0; }
+    51% { transform: translateX(-100px); }
+    100% { transform: translateX(0); opacity: 1; }
+}
