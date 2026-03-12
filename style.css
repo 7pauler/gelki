@@ -64,6 +64,9 @@ body {
     max-height: 500px; /* Maximal 500px hoch */
     position: relative;
     transition: transform 0.5s ease-in-out;
+    /* Verhindert Flackern bei Animationen */
+    backface-visibility: hidden;
+    will-change: transform;
 }
 
 /* Die Flip-Karte selbst - füllt den Container voll aus */

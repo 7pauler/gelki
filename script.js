@@ -1,3 +1,14 @@
+// Alle Bilder vorladen
+function preloadImages() {
+    puzzleData.forEach(item => {
+        new Image().src = item.front;
+        new Image().src = item.back;
+    });
+}
+
+// Aufrufen, wenn die Seite startet
+window.onload = preloadImages;
+
 const puzzleData = [
     { front: '1v.jpeg', back: '1h.jpeg' },
     { front: '2v.jpeg', back: '2h.jpeg' },
