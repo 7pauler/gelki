@@ -11,7 +11,7 @@ body {
     background-color: var(--bg-color);
     background-image: radial-gradient(#003366 1px, transparent 1px);
     background-size: 25px 25px;
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    font-family: "Chalkboard SE","Comic Sans MS", "Comic Sans", cursive;
     display: flex;
     flex-direction: column;
     align-items: center;
