@@ -101,8 +101,6 @@ body {
     width: 90%;
     height: 90%;
     object-fit: contain;
-    border: 2px solid white; /* Weißer Rahmen um Bild im blauen Kasten */
-    border-radius: 10px;
 }
 
 /* ... (Die restlichen Animationen aus dem vorherigen Code bleiben gleich) ... */
